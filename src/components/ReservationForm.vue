@@ -1,25 +1,22 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import { useReservationStore } from '@/stores/reservationStore'; // Importamos el store
 
+// Definimos los campos del formulario
 const customerName = ref('');
 const checkInDate = ref('');
 const checkOutDate = ref('');
 const selectedRoomId = ref(null);
-const rooms = ref([]);
 
-// Obtener las habitaciones disponibles al montar el componente
-onMounted(async () => {
-  try {
-    const response = await axios.get('http://localhost:8080/api/room');
-    rooms.value = response.data;
-  } catch (error) {
-    console.error('Error al obtener habitaciones:', error);
-  }
+// Utilizamos el store
+const reservationStore = useReservationStore();
+
+// Al montar el componente, obtenemos las habitaciones disponibles
+onMounted(() => {
+  reservationStore.fetchRooms();
 });
 
-// Función para enviar la reserva
+// Función para enviar la reservación
 const submitReservation = async () => {
   try {
     const reservation = {
@@ -28,14 +25,8 @@ const submitReservation = async () => {
       checkOutDate: checkOutDate.value,
       room: { id: selectedRoomId.value }
     };
-    await axios.post('http://localhost:8080/api/reservation', reservation);
-    
-    // Mostrar pop-up de confirmación con SweetAlert
-    Swal.fire({
-      icon: 'success',
-      title: 'Reservation successful!',
-      text: 'Your room has been reserved.'
-    });
+
+    await reservationStore.createReservation(reservation);
 
     // Limpiar el formulario después de la reserva
     customerName.value = '';
@@ -44,11 +35,6 @@ const submitReservation = async () => {
     selectedRoomId.value = null;
   } catch (error) {
     console.error('Error al crear la reserva:', error);
-    Swal.fire({
-      icon: 'error',
-      title: 'Reservation failed',
-      text: 'There was an issue with your reservation. Please try again.'
-    });
   }
 };
 </script>
@@ -68,7 +54,7 @@ const submitReservation = async () => {
 
       <label for="room">Seleccionar Habitación:</label>
       <select v-model="selectedRoomId" required>
-        <option v-for="room in rooms" :key="room.id" :value="room.id">
+        <option v-for="room in reservationStore.rooms" :key="room.id" :value="room.id">
           {{ room.name }} - {{ room.type }}
         </option>
       </select>

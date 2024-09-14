@@ -1,30 +1,24 @@
-  
-  <script setup>
-  import { ref, onMounted } from 'vue';
-  import axios from 'axios';
-  
-  const rooms = ref([]);
-  
-  // Al montar el componente, hacer la petición para obtener las habitaciones
-  onMounted(async () => {
-    try {
-      const response = await axios.get('http://localhost:8080/api/room');
-      rooms.value = response.data;
-    } catch (error) {
-      console.error('Error al obtener habitaciones:', error);
-    }
-  });
-  </script>
+<script setup>
+import { onMounted } from 'vue';
+import { useRoomStore } from '@/stores/roomStore'; // Importamos el store
+
+// Usamos el store de habitaciones
+const roomStore = useRoomStore();
+
+// Llamamos a la función `fetchRooms` cuando el componente se monte
+onMounted(() => {
+  roomStore.fetchRooms();
+});
+</script>
 
 <template>
-    <div>
-      <h1>Lista de Habitaciones</h1>
-      <ul>
-        <li v-for="room in rooms" :key="room.id">
-          {{ room.name }} - {{ room.type }} ({{ room.status }})
-        </li>
-      </ul>
-    </div>
-  </template>
-
-  
+  <div>
+    <h1>Lista de Habitaciones</h1>
+    <ul>
+      <!-- Mostramos las habitaciones obtenidas desde el store -->
+      <li v-for="room in roomStore.rooms" :key="room.id">
+        {{ room.name }} - {{ room.type }} ({{ room.status }})
+      </li>
+    </ul>
+  </div>
+</template>
