@@ -1,13 +1,12 @@
 <script setup>
-import ReservationForm from '@/components/ReservationForm.vue';
-import RoomList from '@/components/RoomList.vue';
+import Carolusel from '@/components/Carolusel.vue';
+
 
 </script>
 
 
 <template>
-<RoomList />
-<ReservationForm />
+<Carolusel />
 </template>
 
 

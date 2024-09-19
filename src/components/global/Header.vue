@@ -8,7 +8,8 @@
     <div class="header-right">
       <nav>
         <ul class="nav-links">
-          <RouterLink to="/info" class="nav-item">General Information</RouterLink>
+       
+          <RouterLink to="/" class="nav-item">General Information</RouterLink>
           <RouterLink to="/gallery" class="nav-item">Gallery</RouterLink>
           <RouterLink to="/restaurants" class="nav-item">Restaurants</RouterLink>
         </ul>
