@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 
-// Definimos las propiedades que recibe el componente
+// Define the component's props
 const props = defineProps({
   room: {
     type: Object,
@@ -9,27 +9,27 @@ const props = defineProps({
   }
 });
 
-// Función para manejar la reserva (en este caso, simplemente lo logueamos)
+// Function to handle the reservation (for now, just logging it)
 const handleReserve = () => {
-  console.log(`Reservar habitación: ${props.room.name}`);
+  console.log(`Reserve room: ${props.room.name}`);
 };
 </script>
 
 <template>
   <div class="room-card">
-    <!-- Imagen de la habitación -->
-    <img :src="room.image_url" :alt="`Imagen de ${room.name}`" class="room-image" />
+    <!-- Room image -->
+    <img :src="room.image_url" :alt="`Image of ${room.name}`" class="room-image" />
 
-    <!-- Información de la habitación -->
+    <!-- Room information -->
     <div class="room-info">
       <h2>{{ room.name }}</h2>
       <p>{{ room.description }}</p>
-      <p><strong>Tipo de cama:</strong> {{ room.bed_type }}</p>
-      <p><strong>Estado:</strong> {{ room.status }}</p>
-      <p><strong>Precio por noche:</strong> ${{ room.price }}</p>
+      <p><strong>Bed type:</strong> {{ room.bed_type }}</p>
+      <p><strong>Status:</strong> {{ room.status }}</p>
+      <p><strong>Price per night:</strong> ${{ room.price }}</p>
 
-      <!-- Botón para reservar -->
-      <button @click="handleReserve" class="reserve-button">Reservar</button>
+      <!-- Reserve button -->
+      <button @click="handleReserve" class="reserve-button">Reserve</button>
     </div>
   </div>
 </template>

@@ -6,6 +6,5 @@
 
 <template>
 
-hi
+hi restaurants
 </template>
-

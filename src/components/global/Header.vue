@@ -12,12 +12,13 @@
           <RouterLink to="/" class="nav-item">General Information</RouterLink>
           <RouterLink to="/gallery" class="nav-item">Gallery</RouterLink>
           <RouterLink to="/restaurants" class="nav-item">Restaurants</RouterLink>
+          
         </ul>
       </nav>
 
       <!-- Contact section -->
       <div class="contact-section">
-        <img src="@/assets/img/icon-telefono.png" alt="Phone Icon" class="phone-icon" />
+        <img src="@/assets/icons/Phone.svg" alt="Phone Icon" class="phone-icon" />
         <span>+34 913-608000</span>
         <RouterLink to="/reservations">
           <button class="reserve-btn">Reserve</button>
@@ -27,9 +28,7 @@
   </header>
 </template>
 
-<script setup>
-// No additional logic needed
-</script>
+
 
 <style scoped>
 .header-content {
