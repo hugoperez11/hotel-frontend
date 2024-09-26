@@ -8,6 +8,7 @@ const checkInDate = ref('');
 const checkOutDate = ref('');
 const availableRooms = ref([]);
 const errorMessage = ref(''); // Para manejar errores
+const successMessage = ref(''); // Para manejar mensajes de éxito
 
 // Función para buscar habitaciones disponibles
 const fetchAvailableRooms = async () => {
@@ -31,12 +32,37 @@ const fetchAvailableRooms = async () => {
   }
 };
 
+// Función para realizar una reserva (Esta se invocará desde el modal dentro de `AvailableRooms`)
+const reserveRoom = async (roomId, customerName, customerEmail) => {
+  if (!customerName || !customerEmail) {
+    errorMessage.value = "Por favor, ingresa tu nombre y correo electrónico en el modal.";
+    return;
+  }
+
+  try {
+    const response = await axios.post('http://localhost:8080/api/v1/reservations', {
+      roomId: roomId,
+      customerName: customerName, // Nombre del cliente
+      customerEmail: customerEmail, // Correo del cliente
+      checkInDate: checkInDate.value, // Fecha de entrada
+      checkOutDate: checkOutDate.value // Fecha de salida
+    });
+    successMessage.value = `Reserva exitosa! ID de la reserva: ${response.data.id}`;
+    errorMessage.value = ''; // Limpiar mensaje de error si la solicitud es exitosa
+  } catch (error) {
+    console.error("Error al realizar la reserva:", error);
+    errorMessage.value = 'Error al realizar la reserva. Inténtalo de nuevo más tarde.';
+    successMessage.value = '';
+  }
+};
+
 </script>
 
 <template>
   <div>
     <h1>Reserva de Habitación</h1>
 
+    <!-- Formulario solo para seleccionar fechas -->
     <form @submit.prevent="fetchAvailableRooms">
       <div>
         <label for="checkIn">Fecha de Entrada:</label>
@@ -46,14 +72,23 @@ const fetchAvailableRooms = async () => {
         <label for="checkOut">Fecha de Salida:</label>
         <input type="date" v-model="checkOutDate" required />
       </div>
+
       <button type="submit">Buscar Habitaciones Disponibles</button>
     </form>
 
     <!-- Mostrar mensaje de error si ocurre -->
     <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
 
+    <!-- Mostrar mensaje de éxito si la reserva fue exitosa -->
+    <p v-if="successMessage" style="color: green;">{{ successMessage }}</p>
+
     <!-- Pasar habitaciones y fechas seleccionadas al componente AvailableRooms -->
-    <AvailableRooms :rooms="availableRooms" :checkInDate="checkInDate" :checkOutDate="checkOutDate" />
+    <AvailableRooms 
+      :rooms="availableRooms" 
+      :checkInDate="checkInDate" 
+      :checkOutDate="checkOutDate" 
+      @reserveRoom="reserveRoom" 
+    />
   </div>
 </template>
 
@@ -75,5 +110,9 @@ label {
 
 button {
   margin-top: 10px;
+}
+
+p {
+  text-align: center;
 }
 </style>
