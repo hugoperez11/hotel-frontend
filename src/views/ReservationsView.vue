@@ -1,5 +1,7 @@
 <script setup>
-import RoomList from '@/components/RoomList.vue';
+import Reservation from '@/components/Reservation.vue';
+
+
 
 
 
@@ -9,6 +11,5 @@ import RoomList from '@/components/RoomList.vue';
 
 
 <template>
-<RoomList />
-reservations
+<Reservation />
 </template>
