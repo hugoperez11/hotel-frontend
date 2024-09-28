@@ -8,11 +8,9 @@
     <div class="header-right">
       <nav>
         <ul class="nav-links">
-       
           <RouterLink to="/" class="nav-item">General Information</RouterLink>
           <RouterLink to="/gallery" class="nav-item">Gallery</RouterLink>
           <RouterLink to="/restaurants" class="nav-item">Restaurants</RouterLink>
-          
         </ul>
       </nav>
 
@@ -21,33 +19,38 @@
         <img src="@/assets/icons/Phone.svg" alt="Phone Icon" class="phone-icon" />
         <span>+34 913-608000</span>
         <RouterLink to="/reservations">
-          <button class="reserve-btn">Reserve</button>
+          <button class="reserve-btn">Book Now</button>
         </RouterLink>
       </div>
     </div>
   </header>
 </template>
 
-
-
 <style scoped>
 .header-content {
   display: flex;
-  justify-content: space-between; /* Aligns logo to the left and header-right to the right */
+  justify-content: space-between;
   align-items: center;
   padding: 20px;
   border-bottom: 1px solid #ddd;
-  flex-wrap: wrap; /* Allows elements to wrap on smaller screens */
+  flex-wrap: wrap;
+  position: fixed; /* Make the header fixed */
+  top: 0; /* Stick to the top of the page */
+  left: 0;
+  right: 0;
+  background-color: #fff; /* Ensure the header has a background color */
+  z-index: 1000; /* Ensure the header is above other elements */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow to the header */
 }
 
 .logo-section {
   display: flex;
   align-items: center;
-  flex: 1; /* Allows it to grow and shrink */
+  flex: 1;
 }
 
 .logo {
-  width: 100px; /* Adjust size as needed */
+  width: 100px;
   margin-right: 10px;
 }
 
@@ -59,17 +62,17 @@
 .header-right {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* Aligns nav and contact-section to the right */
-  flex: 1; /* Allows it to grow and shrink */
+  align-items: flex-end;
+  flex: 1;
 }
 
 nav {
-  margin-bottom: 10px; /* Space between nav and contact section */
+  margin-bottom: 10px;
 }
 
 .nav-links {
   display: flex;
-  gap: 30px; /* Space between the links */
+  gap: 30px;
   list-style: none;
   padding: 0;
 }
@@ -92,7 +95,7 @@ nav {
 }
 
 .phone-icon {
-  width: 20px; /* Size of the phone icon */
+  width: 20px;
   height: auto;
 }
 
@@ -109,10 +112,15 @@ nav {
   background-color: #0056b3;
 }
 
+/* Add padding-top to avoid content being hidden behind the fixed header */
+body {
+  padding-top: 80px; /* Adjust this value based on the height of the header */
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   .header-content {
-    flex-direction: column; /* Stack elements vertically */
+    flex-direction: column;
     align-items: center;
   }
 
@@ -124,38 +132,38 @@ nav {
 
   .nav-links {
     flex-direction: column;
-    gap: 10px; /* Reduce space between links */
+    gap: 10px;
     margin-right: 0;
   }
 
   .logo {
-    width: 80px; /* Adjust logo size for smaller screens */
+    width: 80px;
   }
 
   .hotel-name {
-    font-size: 20px; /* Reduce font size */
+    font-size: 20px;
   }
 
   .reserve-btn {
-    padding: 10px 20px; /* Adjust button size */
+    padding: 10px 20px;
   }
 }
 
 @media (max-width: 480px) {
   .header-content {
-    padding: 10px; /* Reduce padding */
+    padding: 10px;
   }
 
   .phone-icon {
-    width: 16px; /* Further reduce icon size */
+    width: 16px;
   }
 
   .hotel-name {
-    font-size: 18px; /* Further reduce font size */
+    font-size: 18px;
   }
 
   .reserve-btn {
-    padding: 8px 16px; /* Further adjust button size */
+    padding: 8px 16px;
   }
 }
 </style>

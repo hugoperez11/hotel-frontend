@@ -65,7 +65,7 @@ const prevSlide = () => {
 
 .carousel-item img {
   width: 100%;
-  height: 110vh; /* Adjust height as needed */
+  height: 100vh; /* Adjust height as needed */
   object-fit: cover; /* Ensure image covers the area */
   display: block;
 }

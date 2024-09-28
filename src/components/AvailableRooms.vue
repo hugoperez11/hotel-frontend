@@ -1,16 +1,14 @@
 <template>
-  <div v-if="rooms.length">
+  <div v-if="rooms.length" class="available-rooms-container">
     <h2>Habitaciones Disponibles</h2>
-    <ul>
-      <li v-for="room in rooms" :key="room.id">
-        <h3>{{ room.name }}</h3>
-        <p>Tipo: {{ room.type }}</p>
-        <p>Vista: {{ room.view }}</p>
-        <p>Cama: {{ room.bed }}</p>
-        <p>Precio: ${{ room.price }}</p>
-        <button @click="openReservationModal(room.id)">Reservar</button>
-      </li>
-    </ul>
+    <div class="rooms-list">
+      <RoomCard
+        v-for="room in rooms"
+        :key="room.id"
+        :room="room"
+        @reserve="openReservationModal"
+      />
+    </div>
   </div>
   <div v-else>
     <p>No hay habitaciones disponibles para las fechas seleccionadas.</p>
@@ -21,8 +19,7 @@
     <div class="modal-content">
       <span class="close" @click="closeModal">&times;</span>
       <h3>Información del Cliente</h3>
-      
-      <!-- Campos para el nombre y correo electrónico -->
+
       <label for="name">Nombre:</label>
       <input v-model="customerName" id="name" type="text" placeholder="Introduce tu nombre" required />
 
@@ -31,12 +28,10 @@
 
       <button @click="confirmReservation">Confirmar Reserva</button>
 
-      <!-- Mostrar mensaje de error si hay problemas con la reserva -->
       <div v-if="modalErrorMessage" style="color: red;">{{ modalErrorMessage }}</div>
     </div>
   </div>
 
-  <!-- Mensajes de éxito o error -->
   <div v-if="successMessage" style="color: green;">{{ successMessage }}</div>
   <div v-if="errorMessage" style="color: red;">{{ errorMessage }}</div>
 </template>
@@ -44,6 +39,7 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+import RoomCard from './RoomCard.vue'; // Importar la tarjeta reutilizable
 
 // Props que recibirán las habitaciones y las fechas desde el componente padre
 const props = defineProps({
@@ -62,13 +58,13 @@ const props = defineProps({
 });
 
 // Estado del modal y datos del cliente
-const isModalOpen = ref(false);           // Para controlar si el modal está abierto
-const selectedRoomId = ref(null);         // Para almacenar el ID de la habitación seleccionada
-const customerName = ref('');             // Almacena el nombre del cliente
-const customerEmail = ref('');            // Almacena el correo electrónico del cliente
-const modalErrorMessage = ref('');        // Mensaje de error si hay problemas con los datos del cliente
-const successMessage = ref('');           // Mensaje de éxito de reserva
-const errorMessage = ref('');             // Mensaje de error en caso de fallo de la reserva
+const isModalOpen = ref(false);
+const selectedRoomId = ref(null);
+const customerName = ref('');
+const customerEmail = ref('');
+const modalErrorMessage = ref('');
+const successMessage = ref('');
+const errorMessage = ref('');
 
 // Función para abrir el modal con la habitación seleccionada
 const openReservationModal = (roomId) => {
@@ -91,7 +87,6 @@ const confirmReservation = async () => {
     return;
   }
 
-  // Crear el objeto de datos de la reserva
   const reservationData = {
     roomId: selectedRoomId.value,
     checkInDate: props.checkInDate,
@@ -101,55 +96,32 @@ const confirmReservation = async () => {
   };
 
   try {
-    // Enviar solicitud al backend para crear la reserva
     const response = await axios.post('http://localhost:8080/api/v1/reservations', reservationData);
     successMessage.value = `Habitación reservada con éxito. ID de la reserva: ${response.data.id}`;
     errorMessage.value = '';
-    closeModal(); // Cerrar el modal después de una reserva exitosa
+    closeModal();
   } catch (error) {
     console.error('Error al reservar la habitación:', error);
     errorMessage.value = 'Hubo un problema al reservar la habitación. Inténtalo de nuevo más tarde.';
     successMessage.value = '';
-    closeModal(); // Cerrar el modal incluso si hay un error
+    closeModal();
   }
 };
 </script>
 
 <style scoped>
-ul {
-  list-style-type: none;
-  padding: 0;
+.available-rooms-container {
+  text-align: center;
 }
 
-li {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 10px;
-  margin: 10px 0;
+.rooms-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
 }
 
-li h3 {
-  margin: 0;
-}
-
-li p {
-  margin: 5px 0;
-}
-
-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-/* Estilos del modal */
 .modal {
   display: block;
   position: fixed;
@@ -186,13 +158,6 @@ button:hover {
   cursor: pointer;
 }
 
-input {
-  margin: 10px 0;
-  padding: 10px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
 button {
   background-color: #4CAF50;
   color: white;
@@ -200,7 +165,6 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 10px;
 }
 
 button:hover {
