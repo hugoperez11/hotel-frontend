@@ -59,7 +59,7 @@ const reserveRoom = async (roomId, customerName, customerEmail) => {
 </script>
 
 <template>
-  <div>
+  <div class="reservation-container"> <!-- Contenedor principal con clase para aplicar margen -->
     <h1>Reserva de Habitación</h1>
 
     <!-- Formulario solo para seleccionar fechas -->
@@ -95,6 +95,10 @@ const reserveRoom = async (roomId, customerName, customerEmail) => {
 <style scoped>
 h1 {
   text-align: center;
+}
+
+.reservation-container { /* Agregar clase para el contenedor principal */
+  margin-top: 200px; /* Ajusta este valor para establecer el margen superior */
 }
 
 form {

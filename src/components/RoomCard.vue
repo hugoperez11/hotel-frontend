@@ -21,10 +21,11 @@ const props = defineProps({
   }
 });
 
-// Función para obtener la URL completa de la imagen
 function getImageUrl(imagePath) {
-  return `http://localhost:8080${imagePath}`;
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+  return `${baseUrl}${imagePath}`;
 }
+
 </script>
 
 <style scoped>
