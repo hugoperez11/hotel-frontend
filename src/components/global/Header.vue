@@ -1,3 +1,8 @@
+<script setup>
+import AdminLogin from '@/components/AdminLogin.vue';
+</script>
+
+
 <template>
   <header class="header-content">
     <div class="logo-section">
@@ -20,8 +25,10 @@
         <span>+34 913-608000</span>
         <RouterLink to="/reservations">
           <button class="reserve-btn">Book Now</button>
+          
         </RouterLink>
       </div>
+      <AdminLogin /> 
     </div>
   </header>
 </template>
@@ -31,7 +38,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   border-bottom: 1px solid #ddd;
   flex-wrap: wrap;
   position: fixed; /* Make the header fixed */
@@ -100,7 +107,7 @@ nav {
 }
 
 .reserve-btn {
-  background-color: #007BFF;
+  background-color: #ff1500;
   color: white;
   border: none;
   padding: 15px 30px;
