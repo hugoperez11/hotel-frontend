@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <button class="login-btn" @click="showLoginPopup = true">Login</button>
+    <button class="login-btn" @click="showLoginPopup = true">Login as Admin</button>
 
     <!-- Popup de Login -->
     <div v-if="showLoginPopup" class="popup-overlay">
