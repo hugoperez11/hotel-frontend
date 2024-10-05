@@ -14,7 +14,7 @@ const routes = [
   {
     path: '/gallery',
     name: 'gallery',
-    component: GallleryView
+   component: GallleryView
   },
   {
     path: '/reservations',
@@ -28,9 +28,9 @@ const routes = [
   },
   {
     path: '/admin',
-    name: 'admin',
+    name: 'adminview',
     component: AdminView,
-    meta: { requiresAuth: true } // Añadimos el meta requiresAuth para proteger la ruta
+  /*   meta: { requiresAuth: true } */ // Añadimos el meta requiresAuth para proteger la ruta
   }
 ];
 
@@ -39,7 +39,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
 });
-
+/* 
 // Aquí añadimos la lógica de autenticación antes de cada navegación
 router.beforeEach((to, from, next) => {
   const isAuthenticated = document.cookie.includes('JSESSIONID'); // Chequeamos si la cookie de sesión está presente
@@ -50,6 +50,6 @@ router.beforeEach((to, from, next) => {
     next(); // Permitir el acceso
   }
 });
-
+ */
 // Exportamos el router para que pueda ser utilizado en la aplicación
 export default router;

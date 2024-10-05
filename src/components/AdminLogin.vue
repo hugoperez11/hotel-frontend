@@ -49,14 +49,15 @@ async function handleLogin() {
 
     // Realizamos la solicitud de login usando GET
     const response = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/login`, {
-      headers: headers // Enviar la cabecera con las credenciales
+      headers: headers, // Enviar la cabecera con las credenciales
+      withCredentials: true 
     });
 
     // Si la respuesta es exitosa
     if (response.status === 202) {
       // Autenticación exitosa
       alert('Login exitoso');
-      router.push('/adminview'); // Redirigir a la vista de admin
+      router.push('/admin'); // Redirigir a la vista de admin
     } else {
       errorMessage.value = 'Error en la autenticación.';
     }
