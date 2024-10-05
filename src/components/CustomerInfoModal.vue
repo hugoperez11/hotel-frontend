@@ -36,7 +36,11 @@
   
         <button @click="confirmReservation">Confirm Reservation</button>
   
-        <div v-if="modalErrorMessage" style="color: red;">{{ modalErrorMessage }}</div>
+        <div v-if="modalErrorMessage" class="error">{{ modalErrorMessage }}</div>
+        
+        <div class="cancellation-policy">
+          <p>Cancellation Policy: You can cancel up to 2 days before your arrival without any charge. If you cancel after this period, you will be charged for one night's stay.</p>
+        </div>
       </div>
     </div>
   </template>
@@ -71,58 +75,103 @@
   };
   
   const confirmReservation = () => {
-    emit('confirm');
+    const reservationData = {
+      customerName: props.customerName,
+      customerEmail: props.customerEmail,
+      creditCardNumber: props.creditCardNumber
+    };
+    emit('confirm', reservationData);
   };
   </script>
   
   <style scoped>
   .modal {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: fixed;
-    z-index: 1;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.8);
   }
   
   .modal-content {
-    background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
+    background-color: #007BFF;
+    padding: 30px;
     border: 1px solid #888;
     width: 80%;
     max-width: 500px;
-    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 200px auto 0 auto; /* Margen superior de 200px y centrado horizontalmente */
   }
   
   .close {
-    color: #aaa;
-    float: right;
+    align-self: flex-end;
+    color: #fff;
     font-size: 28px;
     font-weight: bold;
+    cursor: pointer;
   }
   
   .close:hover,
   .close:focus {
-    color: black;
+    color: #ddd;
     text-decoration: none;
-    cursor: pointer;
+  }
+  
+  h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  
+  label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
   }
   
   button {
-    background-color: #4CAF50;
+    background-color: #28a745;
     color: white;
-    padding: 10px;
+    padding: 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
   }
   
   button:hover {
-    background-color: #45a049;
+    background-color: #218838;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .cancellation-policy {
+    margin-top: 20px;
+    font-size: 14px;
+    color: yellow;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
   }
   </style>
   

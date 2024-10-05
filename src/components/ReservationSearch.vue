@@ -1,54 +1,55 @@
 <template>
   <div class="reservation-container">
-    <h1>Buscar Reserva</h1>
+    <h1>Search Reservation</h1>
     <form @submit.prevent="fetchReservation">
       <input
         type="text"
-        placeholder="Número de confirmación"
+        placeholder="Confirmation Number"
         v-model="confirmationNumber"
         required
       />
       <div class="button-container">
-        <button type="submit">Buscar</button>
+        <button type="submit">Search</button>
       </div>
     </form>
-    <p v-if="errorMessage" style="color: red">{{ errorMessage }}</p>
+    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
 
-    <!-- Mostrar los detalles de la reserva si se encuentra -->
-    <div v-if="reservationData">
-      <h2>Detalles de la Reserva</h2>
-      <form @submit.prevent="updateReservation">
-        <div>
-          <label>Número de confirmación:</label>
+    <!-- Display reservation details if found -->
+    <div v-if="reservationData" class="reservation-details">
+      <button class="close-btn" @click="closeReservationDetails">&times;</button>
+      <h2>Reservation Details</h2>
+      <form @submit.prevent="updateReservation" class="reservation-form">
+        <div class="form-group">
+          <label>Confirmation Number:</label>
           <input type="text" v-model="reservationData.confirmationNumber" disabled />
         </div>
-        <div>
-          <label>ID de habitación:</label>
+        <div class="form-group">
+          <label>Room ID:</label>
           <input type="number" v-model="reservationData.roomId" />
         </div>
-        <div>
-          <label>Fecha de entrada:</label>
+        <div class="form-group">
+          <label>Check-in Date:</label>
           <input type="date" v-model="reservationData.checkInDate" />
         </div>
-        <div>
-          <label>Fecha de salida:</label>
+        <div class="form-group">
+          <label>Check-out Date:</label>
           <input type="date" v-model="reservationData.checkOutDate" />
         </div>
-        <div>
-          <label>ID del cliente:</label>
+        <div class="form-group">
+          <label>Customer ID:</label>
           <input type="number" v-model="reservationData.customerId" />
         </div>
-        <div>
-          <label>Nombre del cliente:</label>
+        <div class="form-group">
+          <label>Customer Name:</label>
           <input type="text" v-model="reservationData.customerName" />
         </div>
-        <div>
-          <label>Email del cliente:</label>
+        <div class="form-group">
+          <label>Customer Email:</label>
           <input type="email" v-model="reservationData.customerEmail" />
         </div>
         <div class="button-container">
-          <button type="submit">Actualizar Reserva</button>
-          <button type="button" @click="deleteReservation">Eliminar Reserva</button>
+          <button type="submit">Update Reservation</button>
+          <button type="button" class="delete-btn" @click="deleteReservation">Delete Reservation</button>
         </div>
       </form>
     </div>
@@ -59,27 +60,32 @@
 import { ref } from 'vue';
 import axios from 'axios';
 
-// Variables reactivas para manejar el número de confirmación y los datos de reserva
+// Reactive variables for handling confirmation number and reservation data
 const confirmationNumber = ref('');
 const reservationData = ref(null);
 const errorMessage = ref('');
 
-// Función para buscar la reserva
+// Function to search for a reservation
 const fetchReservation = async () => {
   try {
     const response = await axios.get(`http://localhost:8080/api/v1/reservations/confirmation/${confirmationNumber.value}`);
     reservationData.value = response.data;
-    errorMessage.value = ''; // Limpiar cualquier mensaje de error previo
+    errorMessage.value = ''; // Clear any previous error message
   } catch (error) {
-    errorMessage.value = 'No se encontró ninguna reserva con ese número de confirmación.';
-    reservationData.value = null; // Limpiar datos de reserva en caso de error
+    errorMessage.value = 'No reservation found with that confirmation number.';
+    reservationData.value = null; // Clear reservation data in case of error
   }
 };
 
-// Función para actualizar la reserva mediante PUT
+// Function to close reservation details
+const closeReservationDetails = () => {
+  reservationData.value = null; // Clear reservation data
+};
+
+// Function to update the reservation using PUT
 const updateReservation = async () => {
   try {
-    const response = await axios.put(`http://localhost:8080/api/v1/reservations/confirmation/${reservationData.value.confirmationNumber}`, {
+    await axios.put(`http://localhost:8080/api/v1/reservations/confirmation/${reservationData.value.confirmationNumber}`, {
       roomId: reservationData.value.roomId,
       checkInDate: reservationData.value.checkInDate,
       checkOutDate: reservationData.value.checkOutDate,
@@ -87,51 +93,123 @@ const updateReservation = async () => {
       customerName: reservationData.value.customerName,
       customerEmail: reservationData.value.customerEmail,
     });
-    alert('Reserva actualizada con éxito');
+    alert('Reservation updated successfully');
   } catch (error) {
-    console.error('Error al actualizar la reserva:', error);
-    alert('Error al actualizar la reserva');
+    console.error('Error updating reservation:', error);
+    alert('Error updating reservation');
   }
 };
 
-// Función para eliminar la reserva mediante DELETE
+// Function to delete the reservation using DELETE
 const deleteReservation = async () => {
   try {
-    const response = await axios.delete(`http://localhost:8080/api/v1/reservations/confirmation/${reservationData.value.confirmationNumber}`);
-    alert('Reserva eliminada con éxito');
-    reservationData.value = null; // Limpiar los datos de la reserva después de eliminarla
+    await axios.delete(`http://localhost:8080/api/v1/reservations/confirmation/${reservationData.value.confirmationNumber}`);
+    alert('Reservation deleted successfully');
+    reservationData.value = null; // Clear the reservation data after deleting
   } catch (error) {
-    console.error('Error al eliminar la reserva:', error);
-    alert('Error al eliminar la reserva');
+    console.error('Error deleting reservation:', error);
+    alert('Error deleting reservation');
   }
 };
 </script>
 
 <style scoped>
+/* Main container */
 .reservation-container {
-  margin-top: 200px; /* Ajusta el valor según necesites */
+  background-color: #0056b3; /* Blue background */
+  padding: 30px;
+  border-radius: 10px;
+  width: 70%;
+  max-width: 800px; /* Set maximum size */
+  margin: 0 auto;
+  margin-top: 180px;
+  text-align: center;
+  color: white;
 }
 
+/* Style for headers */
+h1, h2 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+/* Style for reservation form */
+.reservation-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Divided into two columns */
+  gap: 15px; /* Space between elements */
+  text-align: left;
+}
+
+/* Style for inputs */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="email"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Form group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Button container */
 .button-container {
+  grid-column: span 2; /* Occupies both columns */
+  display: flex;
+  justify-content: space-between;
   margin-top: 20px;
 }
 
-input {
-  margin-bottom: 10px;
-  padding: 5px;
-  width: 100%;
+/* Close button style */
+.close-btn {
+  background: none;
+  color: white;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 15px;
 }
 
+/* General button style */
 button {
-  padding: 10px;
-  background-color: #8ab9ec;
+  padding: 10px 15px;
+  background-color: #4CAF50;
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 5px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
+/* Hover effect for buttons */
 button:hover {
-  background-color: #6299d1;
+  background-color: #45a049;
+}
+
+/* Delete button style */
+.delete-btn {
+  background-color: #dc3545;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+/* Error message style */
+.error {
+  color: #ff5b5b;
+  margin-top: 10px;
+  font-weight: bold;
 }
 </style>
