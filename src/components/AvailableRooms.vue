@@ -5,7 +5,6 @@ import RoomCard from './RoomCard.vue'; // Import reusable room card component
 import CustomerInfoModal from './CustomerInfoModal.vue'; // Import the customer info modal
 import ReservationConfirmation from './ReservationConfirmation.vue'; // Import the confirmation modal
 
-// Props to receive the rooms and dates from the parent component
 const props = defineProps({
   rooms: {
     type: Array,
@@ -26,6 +25,7 @@ const isModalOpen = ref(false);
 const selectedRoomId = ref(null);
 const customerName = ref('');
 const customerEmail = ref('');
+const creditCardNumber = ref(''); // To store the credit card number
 const modalErrorMessage = ref('');
 const confirmationNumber = ref(''); // To store the confirmation number
 const isConfirmationVisible = ref(false); // To show the confirmation popup
@@ -42,12 +42,13 @@ const closeModal = () => {
   isModalOpen.value = false;
   customerName.value = '';
   customerEmail.value = '';
+  creditCardNumber.value = ''; // Reset the credit card number
   modalErrorMessage.value = '';
 };
 
 // Function to confirm the reservation
 const confirmReservation = async () => {
-  if (!customerName.value || !customerEmail.value) {
+  if (!customerName.value || !customerEmail.value || !creditCardNumber.value) {
     modalErrorMessage.value = 'Please complete all fields.';
     return;
   }
@@ -57,7 +58,8 @@ const confirmReservation = async () => {
     checkInDate: props.checkInDate,
     checkOutDate: props.checkOutDate,
     customerName: customerName.value,
-    customerEmail: customerEmail.value
+    customerEmail: customerEmail.value,
+    creditCardNumber: creditCardNumber.value, // Include the credit card number
   };
 
   try {
@@ -74,7 +76,6 @@ const confirmReservation = async () => {
   }
 };
 </script>
-
 
 <template>
   <div v-if="rooms.length" class="available-rooms-container">
@@ -94,16 +95,17 @@ const confirmReservation = async () => {
 
   <!-- Import the CustomerInfoModal component for entering customer information -->
   <CustomerInfoModal
-  :isVisible="isModalOpen"
-  :customerName="customerName"
-  :customerEmail="customerEmail"
-  :modalErrorMessage="modalErrorMessage"
-  @close="closeModal"
-  @update:customerName="customerName = $event"
-  @update:customerEmail="customerEmail = $event"
-  @confirm="confirmReservation"
-/>
-
+    :isVisible="isModalOpen"
+    :customerName="customerName"
+    :customerEmail="customerEmail"
+    :creditCardNumber="creditCardNumber"
+    :modalErrorMessage="modalErrorMessage"
+    @close="closeModal"
+    @update:customerName="customerName = $event"
+    @update:customerEmail="customerEmail = $event"
+    @update:creditCardNumber="creditCardNumber = $event" 
+    @confirm="confirmReservation"
+  />
 
   <!-- Confirmation popup imported from ReservationConfirmation component -->
   <ReservationConfirmation
@@ -114,8 +116,6 @@ const confirmReservation = async () => {
 
   <div v-if="errorMessage" style="color: red;">{{ errorMessage }}</div>
 </template>
-
-
 
 <style scoped>
 .available-rooms-container {

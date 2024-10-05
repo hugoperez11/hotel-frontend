@@ -23,6 +23,16 @@
           placeholder="Enter your email"
           required
         />
+        
+        <label for="creditCard">Credit Card Number:</label>
+        <input
+          :value="creditCardNumber"
+          @input="updateCreditCardNumber($event.target.value)"
+          id="creditCard"
+          type="text"
+          placeholder="Enter your credit card number"
+          required
+        />
   
         <button @click="confirmReservation">Confirm Reservation</button>
   
@@ -38,27 +48,28 @@
     isVisible: Boolean,
     customerName: String,
     customerEmail: String,
-    modalErrorMessage: String
+    creditCardNumber: String,
+    modalErrorMessage: String,
   });
   
-  const emit = defineEmits(['close', 'update:customerName', 'update:customerEmail', 'confirm']);
+  const emit = defineEmits(['close', 'update:customerName', 'update:customerEmail', 'update:creditCardNumber', 'confirm']);
   
-  // Emitir cambios de nombre del cliente
   const updateCustomerName = (name) => {
     emit('update:customerName', name);
   };
   
-  // Emitir cambios de email del cliente
   const updateCustomerEmail = (email) => {
     emit('update:customerEmail', email);
   };
   
-  // Función para cerrar el modal
+  const updateCreditCardNumber = (creditCardNumber) => {
+    emit('update:creditCardNumber', creditCardNumber);
+  };
+  
   const closeModal = () => {
     emit('close');
   };
   
-  // Función para confirmar la reserva
   const confirmReservation = () => {
     emit('confirm');
   };
