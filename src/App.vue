@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import Header from './components/global/Header.vue';
 
 </script>
 
@@ -7,7 +8,7 @@ import { RouterLink, RouterView } from 'vue-router'
   
 
       <nav>
-      
+      <Header />
        
       </nav>
   

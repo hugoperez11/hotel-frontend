@@ -1,0 +1,206 @@
+<template>
+  <div v-if="rooms.length" class="available-rooms-container">
+    <h2>Available Rooms</h2>
+    <div class="rooms-list">
+      <RoomCard
+        v-for="room in rooms"
+        :key="room.id"
+        :room="room"
+        @reserve="openReservationModal"
+      />
+    </div>
+  </div>
+  <div v-else>
+    <p>No rooms available for the selected dates.</p>
+  </div>
+
+  <!-- Modal to enter customer information -->
+  <div v-if="isModalOpen" class="modal">
+    <div class="modal-content">
+      <span class="close" @click="closeModal">&times;</span>
+      <h3>Customer Information</h3>
+
+      <label for="name">Name:</label>
+      <input v-model="customerName" id="name" type="text" placeholder="Enter your name" required />
+
+      <label for="email">Email Address:</label>
+      <input v-model="customerEmail" id="email" type="email" placeholder="Enter your email" required />
+
+      <button @click="confirmReservation">Confirm Reservation</button>
+
+      <div v-if="modalErrorMessage" style="color: red;">{{ modalErrorMessage }}</div>
+    </div>
+  </div>
+
+  <!-- Confirmation popup for the reservation -->
+  <div v-if="isConfirmationVisible" class="confirmation-popup">
+    <div class="popup-content">
+      <span class="close" @click="isConfirmationVisible = false">&times;</span>
+      <h3>Reservation Successful!</h3>
+      <p>Your reservation has been successfully completed.</p>
+      <p>Your Confirmation Number is: <strong>{{ confirmationNumber }}</strong></p> <!-- Show confirmation number -->
+    </div>
+  </div>
+
+  <div v-if="errorMessage" style="color: red;">{{ errorMessage }}</div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import axios from 'axios';
+import RoomCard from './RoomCard.vue'; // Import reusable room card component
+
+// Props to receive the rooms and dates from the parent component
+const props = defineProps({
+  rooms: {
+    type: Array,
+    required: true
+  },
+  checkInDate: {
+    type: String,
+    required: true
+  },
+  checkOutDate: {
+    type: String,
+    required: true
+  }
+});
+
+// Modal state and customer data
+const isModalOpen = ref(false);
+const selectedRoomId = ref(null);
+const customerName = ref('');
+const customerEmail = ref('');
+const modalErrorMessage = ref('');
+const confirmationNumber = ref(''); // To store the confirmation number
+const isConfirmationVisible = ref(false); // To show the confirmation popup
+const errorMessage = ref('');
+
+// Function to open the modal with the selected room
+const openReservationModal = (roomId) => {
+  selectedRoomId.value = roomId;
+  isModalOpen.value = true;
+};
+
+// Function to close the modal
+const closeModal = () => {
+  isModalOpen.value = false;
+  customerName.value = '';
+  customerEmail.value = '';
+  modalErrorMessage.value = '';
+};
+
+// Function to confirm the reservation
+const confirmReservation = async () => {
+  if (!customerName.value || !customerEmail.value) {
+    modalErrorMessage.value = 'Please complete all fields.';
+    return;
+  }
+
+  const reservationData = {
+    roomId: selectedRoomId.value,
+    checkInDate: props.checkInDate,
+    checkOutDate: props.checkOutDate,
+    customerName: customerName.value,
+    customerEmail: customerEmail.value
+  };
+
+  try {
+    const response = await axios.post('http://localhost:8080/api/v1/reservations', reservationData);
+    confirmationNumber.value = response.data.confirmationNumber; // Store the confirmation number
+    closeModal();
+
+    // Show the confirmation popup
+    isConfirmationVisible.value = true; // Change the popup state to visible
+  } catch (error) {
+    console.error('Error while booking the room:', error);
+    errorMessage.value = 'There was a problem booking the room. Please try again later.';
+    closeModal();
+  }
+};
+</script>
+
+<style scoped>
+.available-rooms-container {
+  text-align: center;
+}
+
+.rooms-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.confirmation-popup {
+  display: block;
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popup-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  text-align: center;
+}
+</style>
