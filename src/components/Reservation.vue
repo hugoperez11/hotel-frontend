@@ -59,28 +59,32 @@ const reserveRoom = async (roomId, customerName, customerEmail) => {
 </script>
 
 <template>
-  <div class="reservation-container"> <!-- Contenedor principal con clase para aplicar margen -->
-    <h1>Reserva de Habitación</h1>
+  <div class="reservation-container">
+    <h1>Room Reservation</h1>
 
-    <!-- Formulario solo para seleccionar fechas -->
-    <form @submit.prevent="fetchAvailableRooms">
-      <div>
-        <label for="checkIn">Fecha de Entrada:</label>
-        <input type="date" v-model="checkInDate" required />
-      </div>
-      <div>
-        <label for="checkOut">Fecha de Salida:</label>
-        <input type="date" v-model="checkOutDate" required />
+    <!-- Formulario con clase específica -->
+    <form class="reservation-form" @submit.prevent="fetchAvailableRooms">
+      <div class="date-inputs">
+        <div class="input-group">
+          <label for="checkIn">Check-in Date:</label>
+          <input type="date" v-model="checkInDate" required />
+        </div>
+        <div class="input-group">
+          <label for="checkOut">Check-out Date:</label>
+          <input type="date" v-model="checkOutDate" required />
+        </div>
       </div>
 
-      <button type="submit">Buscar Habitaciones Disponibles</button>
+      <div class="button-container">
+        <button type="submit">Search Available Rooms</button>
+      </div>
     </form>
 
     <!-- Mostrar mensaje de error si ocurre -->
-    <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
+    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
 
     <!-- Mostrar mensaje de éxito si la reserva fue exitosa -->
-    <p v-if="successMessage" style="color: green;">{{ successMessage }}</p>
+    <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
 
     <!-- Pasar habitaciones y fechas seleccionadas al componente AvailableRooms -->
     <AvailableRooms 
@@ -92,31 +96,80 @@ const reserveRoom = async (roomId, customerName, customerEmail) => {
   </div>
 </template>
 
+
 <style scoped>
+.reservation-container {
+  margin-top: 200px; /* Ajusta este valor para establecer el margen superior */
+}
+
 h1 {
   text-align: center;
 }
 
-.reservation-container { /* Agregar clase para el contenedor principal */
-  margin-top: 200px; /* Ajusta este valor para establecer el margen superior */
+.reservation-form {
+  background-color: #007BFF; /* Fondo azul */
+  color: white; /* Color del texto blanco */
+  padding: 30px; /* Espacio interno */
+  border-radius: 8px; /* Esquinas redondeadas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para un efecto elevado */
+  max-width: 500px; /* Ancho máximo del formulario */
+  margin: 0 auto; /* Centrar formulario */
+  position: relative; /* Posición relativa para contener el botón */
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
+.date-inputs {
+  display: flex; /* Flexbox para alinear entradas horizontalmente */
+  justify-content: space-between; /* Espaciado entre las entradas */
+  margin-bottom: 20px; /* Espacio debajo de los inputs */
+}
+
+.input-group {
+  flex: 1; /* Ocupa espacio igual */
+  margin-right: 10px; /* Espacio a la derecha */
+}
+
+.input-group:last-child {
+  margin-right: 0; /* Eliminar margen a la derecha del último grupo */
 }
 
 label {
-  margin: 10px 0;
+  margin-bottom: 5px; /* Espacio entre la etiqueta y el campo de entrada */
+}
+
+input {
+  padding: 10px; /* Espacio interno para los inputs */
+  border-radius: 4px; /* Esquinas redondeadas para los inputs */
+  border: none; /* Sin borde */
+  outline: none; /* Sin contorno al enfocar */
+}
+
+.button-container {
+  position: absolute; /* Posición absoluta para colocar el botón */
+  bottom: 5px; /* Distancia desde la parte inferior del formulario */
+  right: 20px; /* Distancia desde la derecha del formulario */
 }
 
 button {
-  margin-top: 10px;
+  background-color: #0056b3; /* Color más oscuro para el botón */
+  color: white; /* Texto blanco en el botón */
+  padding: 10px; /* Espacio interno */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Esquinas redondeadas */
+  cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
+  transition: background-color 0.3s; /* Efecto de transición */
 }
 
-p {
+button:hover {
+  background-color: #004494; /* Color más oscuro al pasar el ratón */
+}
+
+.error-message {
+  color: #ffcc00; /* Color amarillo para los mensajes de error */
+  text-align: center;
+}
+
+.success-message {
+  color: #c4e1ff; /* Color azul claro para los mensajes de éxito */
   text-align: center;
 }
 </style>

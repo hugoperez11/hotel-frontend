@@ -1,42 +1,3 @@
-<template>
-  <div v-if="rooms.length" class="available-rooms-container">
-    <h2>Available Rooms</h2>
-    <div class="rooms-list">
-      <RoomCard
-        v-for="room in rooms"
-        :key="room.id"
-        :room="room"
-        @reserve="openReservationModal"
-      />
-    </div>
-  </div>
-  <div v-else>
-    <p>No rooms available for the selected dates.</p>
-  </div>
-
-  <!-- Import the CustomerInfoModal component for entering customer information -->
-  <CustomerInfoModal
-  :isVisible="isModalOpen"
-  :customerName="customerName"
-  :customerEmail="customerEmail"
-  :modalErrorMessage="modalErrorMessage"
-  @close="closeModal"
-  @update:customerName="customerName = $event"
-  @update:customerEmail="customerEmail = $event"
-  @confirm="confirmReservation"
-/>
-
-
-  <!-- Confirmation popup imported from ReservationConfirmation component -->
-  <ReservationConfirmation
-    :isVisible="isConfirmationVisible"
-    :confirmationNumber="confirmationNumber"
-    @close="isConfirmationVisible = false"
-  />
-
-  <div v-if="errorMessage" style="color: red;">{{ errorMessage }}</div>
-</template>
-
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
@@ -113,6 +74,48 @@ const confirmReservation = async () => {
   }
 };
 </script>
+
+
+<template>
+  <div v-if="rooms.length" class="available-rooms-container">
+    <h2>Available Rooms</h2>
+    <div class="rooms-list">
+      <RoomCard
+        v-for="room in rooms"
+        :key="room.id"
+        :room="room"
+        @reserve="openReservationModal"
+      />
+    </div>
+  </div>
+  <div v-else>
+    <p>Please enter dates. No rooms available for the selected dates.</p>
+  </div>
+
+  <!-- Import the CustomerInfoModal component for entering customer information -->
+  <CustomerInfoModal
+  :isVisible="isModalOpen"
+  :customerName="customerName"
+  :customerEmail="customerEmail"
+  :modalErrorMessage="modalErrorMessage"
+  @close="closeModal"
+  @update:customerName="customerName = $event"
+  @update:customerEmail="customerEmail = $event"
+  @confirm="confirmReservation"
+/>
+
+
+  <!-- Confirmation popup imported from ReservationConfirmation component -->
+  <ReservationConfirmation
+    :isVisible="isConfirmationVisible"
+    :confirmationNumber="confirmationNumber"
+    @close="isConfirmationVisible = false"
+  />
+
+  <div v-if="errorMessage" style="color: red;">{{ errorMessage }}</div>
+</template>
+
+
 
 <style scoped>
 .available-rooms-container {
