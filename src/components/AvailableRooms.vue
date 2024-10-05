@@ -14,33 +14,25 @@
     <p>No rooms available for the selected dates.</p>
   </div>
 
-  <!-- Modal to enter customer information -->
-  <div v-if="isModalOpen" class="modal">
-    <div class="modal-content">
-      <span class="close" @click="closeModal">&times;</span>
-      <h3>Customer Information</h3>
+  <!-- Import the CustomerInfoModal component for entering customer information -->
+  <CustomerInfoModal
+  :isVisible="isModalOpen"
+  :customerName="customerName"
+  :customerEmail="customerEmail"
+  :modalErrorMessage="modalErrorMessage"
+  @close="closeModal"
+  @update:customerName="customerName = $event"
+  @update:customerEmail="customerEmail = $event"
+  @confirm="confirmReservation"
+/>
 
-      <label for="name">Name:</label>
-      <input v-model="customerName" id="name" type="text" placeholder="Enter your name" required />
 
-      <label for="email">Email Address:</label>
-      <input v-model="customerEmail" id="email" type="email" placeholder="Enter your email" required />
-
-      <button @click="confirmReservation">Confirm Reservation</button>
-
-      <div v-if="modalErrorMessage" style="color: red;">{{ modalErrorMessage }}</div>
-    </div>
-  </div>
-
-  <!-- Confirmation popup for the reservation -->
-  <div v-if="isConfirmationVisible" class="confirmation-popup">
-    <div class="popup-content">
-      <span class="close" @click="isConfirmationVisible = false">&times;</span>
-      <h3>Reservation Successful!</h3>
-      <p>Your reservation has been successfully completed.</p>
-      <p>Your Confirmation Number is: <strong>{{ confirmationNumber }}</strong></p> <!-- Show confirmation number -->
-    </div>
-  </div>
+  <!-- Confirmation popup imported from ReservationConfirmation component -->
+  <ReservationConfirmation
+    :isVisible="isConfirmationVisible"
+    :confirmationNumber="confirmationNumber"
+    @close="isConfirmationVisible = false"
+  />
 
   <div v-if="errorMessage" style="color: red;">{{ errorMessage }}</div>
 </template>
@@ -49,6 +41,8 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import RoomCard from './RoomCard.vue'; // Import reusable room card component
+import CustomerInfoModal from './CustomerInfoModal.vue'; // Import the customer info modal
+import ReservationConfirmation from './ReservationConfirmation.vue'; // Import the confirmation modal
 
 // Props to receive the rooms and dates from the parent component
 const props = defineProps({
@@ -180,27 +174,5 @@ button {
 
 button:hover {
   background-color: #45a049;
-}
-
-.confirmation-popup {
-  display: block;
-  position: fixed;
-  z-index: 2;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.popup-content {
-  background-color: #fff;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 500px;
-  text-align: center;
 }
 </style>
