@@ -51,11 +51,12 @@ const developers = [
 .avatar-wrapper {
   padding: 2px;
   display: inline-block;
+  margin-right: 30px;
 }
 
 .developer-avatar {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   transition: opacity 0.3s;
 }

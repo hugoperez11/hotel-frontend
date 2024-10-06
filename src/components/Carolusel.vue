@@ -51,7 +51,7 @@ const prevSlide = () => {
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding-top: 160px;
+  padding-top: 132px;
 }
 
 .carousel-inner {

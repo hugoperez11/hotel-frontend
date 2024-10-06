@@ -58,7 +58,7 @@ import AdminLogin from '@/components/AdminLogin.vue';
 
 .logo {
   width: 90px;
-  margin-right: 10px;
+  margin-right: 40px;
 }
 
 .hotel-name {
@@ -71,6 +71,7 @@ import AdminLogin from '@/components/AdminLogin.vue';
   flex-direction: column;
   align-items: flex-end;
   flex: 1;
+  margin-right: 50px;
 }
 
 nav {
@@ -82,6 +83,7 @@ nav {
   gap: 30px;
   list-style: none;
   padding: 0;
+  margin-right: 400px;
 }
 
 .nav-item {
