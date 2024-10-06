@@ -127,7 +127,7 @@ async function handleLogin() {
 .popup-content {
   background: #0056b3; 
   color: white; 
-  padding: 10px;
+  padding: 30px;
   border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); 
   width: 350px;

@@ -1,5 +1,8 @@
 <script setup>
-import Footer from '@/components/global/Footer.vue';
+
+import Gallery from '@/components/Gallery.vue';
+
+
 
 
 
@@ -10,7 +13,7 @@ import Footer from '@/components/global/Footer.vue';
 
 
 <template>
-hi
-<Footer />
+<Gallery />
+
 </template>
 
