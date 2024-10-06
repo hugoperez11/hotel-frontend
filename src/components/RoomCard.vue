@@ -23,42 +23,43 @@ const props = defineProps({
 });
 const emit = defineEmits(['reserve']);
 
-
 function getImageUrl(imagePath) {
   const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
   return `${baseUrl}${imagePath}`;
 }
-
 </script>
 
 <style scoped>
 .room-card {
   display: flex;
-  width: 70%; /* The card will still occupy 70% of the screen width */
-  height: auto; /* Allow height to adjust based on content */
+  flex-direction: row; /* Mantén la disposición en fila (imagen a la izquierda) */
+  width: 70%;
+  max-width: 100%;
+  height: auto;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 20px;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  align-items: stretch; /* Ensure items stretch to fit height */
+  align-items: stretch;
 }
 
 .room-image {
-  flex: 0 0 50%; /* Make the image take up 45% of the card's width */
-  height: 400px; /* Set a fixed height for the image */
-  object-fit: cover; /* Ensure the image covers the area without distortion */
+  flex: 0 0 50%;
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
   border-radius: 8px;
-  margin-right: 20px; /* Add space between the image and the text */
+  margin-right: 20px;
 }
 
 .room-details {
-  flex: 1 1 50%; /* Make the text take up 55% of the card's width */
+  flex: 1 1 50%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Space out content evenly */
-  text-align: left; /* Align text to the left */
+  justify-content: space-between;
+  text-align: left;
 }
 
 .room-details h3 {
@@ -68,24 +69,24 @@ function getImageUrl(imagePath) {
 
 .price {
   font-weight: bold;
-  margin: 10px 0; /* Adds space between title and price */
+  margin: 10px 0;
 }
 
 .tax-included {
-  color: #555; /* Slightly muted color for tax information */
-  margin: 0 0 10px; /* Add space below tax information */
+  color: #555;
+  margin: 0 0 10px;
 }
 
 .description {
   margin-bottom: 10px;
-  flex-grow: 1; /* Allow the description to grow and fill space */
-  text-align: left; /* Align text to the left */
+  flex-grow: 1;
+  text-align: left;
 }
 
 .button-container {
   display: flex;
-  justify-content: flex-end; /* Align button to the right */
-  margin-top: auto; /* Push button to the bottom */
+  justify-content: flex-end;
+  margin-top: auto;
 }
 
 button {
@@ -100,5 +101,51 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+  .room-card {
+    flex-direction: column; /* Cambia a diseño en columna en pantallas pequeñas */
+    align-items: center;
+    text-align: center; /* Centrar texto en pantallas pequeñas */
+  }
+
+  .room-image {
+    margin-right: 0;
+    margin-bottom: 20px;
+    width: 100%; /* Imagen toma todo el ancho */
+    height: 250px; /* Ajustar altura de la imagen en pantallas pequeñas */
+  }
+
+  .room-details {
+    width: 100%;
+  }
+
+  .room-details h3 {
+    font-size: 25px;
+  }
+
+  .button-container {
+    justify-content: center; /* Centrar botón en pantallas pequeñas */
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .room-image {
+    height: 200px; /* Ajustar aún más la altura de la imagen en pantallas muy pequeñas */
+  }
+
+  .room-details h3 {
+    font-size: 20px;
+  }
+
+  button {
+    padding: 8px 16px; /* Ajustar el tamaño del botón */
+  }
 }
 </style>

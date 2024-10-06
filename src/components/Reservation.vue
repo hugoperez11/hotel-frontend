@@ -96,80 +96,130 @@ const reserveRoom = async (roomId, customerName, customerEmail) => {
   </div>
 </template>
 
-
 <style scoped>
+/* Estructura básica y márgenes */
 .reservation-container {
-  margin-top: 200px; /* Ajusta este valor para establecer el margen superior */
+  margin-top: 240px;
+  padding: 20px;
+  max-width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
 }
 
 h1 {
   text-align: center;
+  font-size: 2rem;
 }
 
 .reservation-form {
-  background-color: #007BFF; /* Fondo azul */
-  color: white; /* Color del texto blanco */
-  padding: 30px; /* Espacio interno */
-  border-radius: 8px; /* Esquinas redondeadas */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para un efecto elevado */
-  max-width: 500px; /* Ancho máximo del formulario */
-  margin: 0 auto; /* Centrar formulario */
-  position: relative; /* Posición relativa para contener el botón */
+  background-color: #007BFF;
+  color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
 }
 
 .date-inputs {
-  display: flex; /* Flexbox para alinear entradas horizontalmente */
-  justify-content: space-between; /* Espaciado entre las entradas */
-  margin-bottom: 20px; /* Espacio debajo de los inputs */
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap; /* Ajustar cuando la pantalla sea más pequeña */
 }
 
 .input-group {
-  flex: 1; /* Ocupa espacio igual */
-  margin-right: 10px; /* Espacio a la derecha */
+  flex: 1;
+  margin-right: 10px;
 }
 
 .input-group:last-child {
-  margin-right: 0; /* Eliminar margen a la derecha del último grupo */
+  margin-right: 0;
 }
 
 label {
-  margin-bottom: 5px; /* Espacio entre la etiqueta y el campo de entrada */
+  margin-bottom: 5px;
+  font-size: 1rem;
 }
 
 input {
-  padding: 10px; /* Espacio interno para los inputs */
-  border-radius: 4px; /* Esquinas redondeadas para los inputs */
-  border: none; /* Sin borde */
-  outline: none; /* Sin contorno al enfocar */
+  padding: 10px;
+  width: 100%; /* Asegura que los inputs ocupen todo el ancho disponible */
+  border-radius: 4px;
+  border: none;
+  outline: none;
 }
 
 .button-container {
-  position: absolute; /* Posición absoluta para colocar el botón */
-  bottom: 5px; /* Distancia desde la parte inferior del formulario */
-  right: 20px; /* Distancia desde la derecha del formulario */
+  text-align: right;
 }
 
 button {
-  background-color: #0056b3; /* Color más oscuro para el botón */
-  color: white; /* Texto blanco en el botón */
-  padding: 10px; /* Espacio interno */
-  border: none; /* Sin borde */
-  border-radius: 4px; /* Esquinas redondeadas */
-  cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
-  transition: background-color 0.3s; /* Efecto de transición */
+  background-color: #0056b3;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 button:hover {
-  background-color: #004494; /* Color más oscuro al pasar el ratón */
+  background-color: #004494;
 }
 
+/* Mensajes de error y éxito */
 .error-message {
-  color: #ffcc00; /* Color amarillo para los mensajes de error */
+  color: #ffcc00;
   text-align: center;
+  margin-top: 10px;
 }
 
 .success-message {
-  color: #c4e1ff; /* Color azul claro para los mensajes de éxito */
+  color: #c4e1ff;
   text-align: center;
+  margin-top: 10px;
+}
+
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 768px) {
+  .reservation-form {
+    padding: 20px;
+  }
+
+  .date-inputs {
+    flex-direction: column; /* Las entradas se apilan una debajo de la otra */
+  }
+
+  .input-group {
+    margin-right: 0;
+    margin-bottom: 10px; /* Agregar espacio entre los grupos de entrada */
+  }
+
+  .button-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  button {
+    width: 100%; /* Botón ocupa todo el ancho en pantallas pequeñas */
+    padding: 12px;
+  }
+}
+
+/* Media Queries para pantallas muy pequeñas (móviles) */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem; /* Reducir el tamaño de la fuente del título */
+  }
+
+  .reservation-form {
+    padding: 15px;
+    box-shadow: none; /* Remover sombra en pantallas muy pequeñas */
+  }
+
+  button {
+    padding: 10px;
+    font-size: 1rem;
+  }
 }
 </style>

@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import GallleryView from '@/views/GallleryView.vue';
 import ReservationsView from '@/views/ReservationsView.vue';
-import RestaurantsView from '@/views/RestaurantsView.vue';
+
 import AdminView from '@/views/AdminView.vue';
 
 const routes = [
@@ -21,11 +21,7 @@ const routes = [
     name: 'reservations',
     component: ReservationsView
   },
-  {
-    path: '/restaurants',
-    name: 'restaurants',
-    component: RestaurantsView
-  },
+
   {
     path: '/admin',
     name: 'adminview',

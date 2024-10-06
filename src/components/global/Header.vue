@@ -15,7 +15,7 @@ import AdminLogin from '@/components/AdminLogin.vue';
         <ul class="nav-links">
           <RouterLink to="/" class="nav-item">General Information</RouterLink>
           <RouterLink to="/gallery" class="nav-item">Gallery</RouterLink>
-          <RouterLink to="/restaurants" class="nav-item">Restaurants</RouterLink>
+        
         </ul>
       </nav>
 
