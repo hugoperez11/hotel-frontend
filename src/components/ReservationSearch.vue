@@ -116,13 +116,13 @@ const deleteReservation = async () => {
 <style scoped>
 /* Main container */
 .reservation-container {
-  background-color: #0056b3; /* Blue background */
+  background-color: #4b2dce; /* Blue background */
   padding: 30px;
   border-radius: 10px;
   width: 70%;
   max-width: 800px; /* Set maximum size */
   margin: 0 auto;
-  margin-top: 180px;
+  margin-top: 200px;
   text-align: center;
   color: white;
 }
@@ -211,5 +211,53 @@ button:hover {
   color: #ff5b5b;
   margin-top: 10px;
   font-weight: bold;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .reservation-container {
+    width: 90%; /* Increase width for smaller screens */
+    padding: 20px; /* Reduce padding */
+    margin-top: 250px; /* Add margin-top for smaller screens */
+  }
+
+  .reservation-form {
+    grid-template-columns: 1fr; /* Stack inputs in a single column */
+  }
+
+  .button-container {
+    flex-direction: column; /* Stack buttons vertically */
+  }
+
+  .button-container button {
+    width: 100%; /* Full-width buttons */
+    margin-bottom: 10px; /* Space between buttons */
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 24px; /* Smaller font size for header */
+  }
+
+  h2 {
+    font-size: 20px; /* Smaller font size for subheader */
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  input[type="email"],
+  button {
+    font-size: 12px; /* Smaller font size for inputs and buttons */
+  }
+
+  .close-btn {
+    font-size: 24px; /* Smaller close button */
+  }
+
+  .reservation-container {
+    margin-top: 300px; /* Add more margin-top for the smallest screens */
+  }
 }
 </style>

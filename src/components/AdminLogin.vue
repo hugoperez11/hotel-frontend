@@ -84,7 +84,7 @@ async function handleLogin() {
   background-color: #91bdeb; /* Fondo azul oscuro */
   color: white;
   border: none;
-  padding: 4px 8px;
+  padding: 0px 4px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
@@ -127,7 +127,7 @@ async function handleLogin() {
 .popup-content {
   background: #0056b3; 
   color: white; 
-  padding: 30px;
+  padding: 10px;
   border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); 
   width: 350px;

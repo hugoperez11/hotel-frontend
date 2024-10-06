@@ -38,7 +38,7 @@ import AdminLogin from '@/components/AdminLogin.vue';
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 5px;
   border-bottom: 1px solid #ddd;
   flex-wrap: wrap;
   position: fixed; /* Make the header fixed */
@@ -57,7 +57,7 @@ import AdminLogin from '@/components/AdminLogin.vue';
 }
 
 .logo {
-  width: 100px;
+  width: 90px;
   margin-right: 10px;
 }
 
@@ -74,7 +74,7 @@ import AdminLogin from '@/components/AdminLogin.vue';
 }
 
 nav {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 .nav-links {
