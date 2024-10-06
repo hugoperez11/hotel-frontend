@@ -99,7 +99,7 @@ const reserveRoom = async (roomId, customerName, customerEmail) => {
 <style scoped>
 /* Estructura básica y márgenes */
 .reservation-container {
-  margin-top: 240px;
+  margin-top: 160px;
   padding: 20px;
   max-width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
 }
@@ -182,6 +182,10 @@ button:hover {
 
 /* Media Queries para pantallas pequeñas */
 @media (max-width: 768px) {
+  .reservation-container {
+    margin-top: 230px; /* Agregar margen superior para pantallas pequeñas */
+  }
+
   .reservation-form {
     padding: 20px;
   }
@@ -220,6 +224,10 @@ button:hover {
   button {
     padding: 10px;
     font-size: 1rem;
+  }
+
+  .reservation-container {
+    margin-top: 300px; /* Agregar margen superior adicional para pantallas muy pequeñas */
   }
 }
 </style>

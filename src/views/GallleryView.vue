@@ -1,4 +1,6 @@
 <script setup>
+import Footer from '@/components/global/Footer.vue';
+
 
 
 
@@ -9,5 +11,6 @@
 
 <template>
 hi
+<Footer />
 </template>
 
