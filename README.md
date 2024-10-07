@@ -40,3 +40,5 @@ npm run test:unit
 - Axios
 - JavaScript
 - CSS
+### Preview
+![vista pagina hotel](https://github.com/user-attachments/assets/7ad70c6d-5cff-4b42-8d44-23118cd4beb7)
