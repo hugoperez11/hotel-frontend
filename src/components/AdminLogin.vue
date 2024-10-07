@@ -7,17 +7,17 @@
       <div class="popup-content">
         <h4>Login</h4>
         <form @submit.prevent="handleLogin">
-          <div>
+          <div class="input-group">
             <label for="username">Username:</label>
             <input type="text" id="username" v-model="username" required />
           </div>
-          <div>
+          <div class="input-group">
             <label for="password">Password:</label>
             <input type="password" id="password" v-model="password" required />
           </div>
           <div class="button-container">
-            <button type="submit">Login</button>
-            <button type="button" @click="showLoginPopup = false">Close</button>
+            <button class="login-btn submit-btn" type="submit">Login</button>
+            <button class="login-btn close-btn" type="button" @click="showLoginPopup = false">Close</button>
           </div>
         </form>
         <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
@@ -73,7 +73,7 @@ async function handleLogin() {
 </script>
 
 <style scoped>
-/* Estilos del popup */
+/* Estilos del login */
 .login {
   display: flex;
   justify-content: center;
@@ -81,12 +81,34 @@ async function handleLogin() {
 }
 
 .login-btn {
-  background-color: #8ab9ec;
+  background-color: #91bdeb; /* Fondo azul oscuro */
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 0px 4px;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #004494; /* Efecto hover */
+}
+
+.submit-btn {
+  background-color: #28a745; /* Verde para botón de login */
+}
+
+.submit-btn:hover {
+  background-color: #218838;
+}
+
+.close-btn {
+  background-color: #dc3545; /* Rojo para botón de cerrar */
+}
+
+.close-btn:hover {
+  background-color: #c82333;
 }
 
 .popup-overlay {
@@ -95,19 +117,47 @@ async function handleLogin() {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6); /* Fondo oscuro más opaco */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1001; /* Asegúrate de que esté por encima de otros elementos */
+  z-index: 1001;
 }
 
 .popup-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 300px; /* Ajusta según sea necesario */
+  background: #0056b3; 
+  color: white; 
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); 
+  width: 350px;
+  text-align: center; /* Centramos el texto */
+}
+
+h4 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
 .button-container {
@@ -117,7 +167,8 @@ async function handleLogin() {
 }
 
 .error {
-  color: red;
-  margin-top: 10px;
+  color: #ff5b5b;
+  margin-top: 15px;
+  font-weight: bold;
 }
 </style>

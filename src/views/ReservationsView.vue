@@ -1,6 +1,6 @@
 <script setup>
 import Reservation from '@/components/Reservation.vue';
-
+import Footer from '@/components/global/Footer.vue';
 
 
 
@@ -12,4 +12,5 @@ import Reservation from '@/components/Reservation.vue';
 
 <template>
 <Reservation />
+<Footer />
 </template>

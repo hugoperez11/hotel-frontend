@@ -15,7 +15,7 @@ import AdminLogin from '@/components/AdminLogin.vue';
         <ul class="nav-links">
           <RouterLink to="/" class="nav-item">General Information</RouterLink>
           <RouterLink to="/gallery" class="nav-item">Gallery</RouterLink>
-          <RouterLink to="/restaurants" class="nav-item">Restaurants</RouterLink>
+        
         </ul>
       </nav>
 
@@ -38,7 +38,7 @@ import AdminLogin from '@/components/AdminLogin.vue';
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 5px;
   border-bottom: 1px solid #ddd;
   flex-wrap: wrap;
   position: fixed; /* Make the header fixed */
@@ -57,8 +57,8 @@ import AdminLogin from '@/components/AdminLogin.vue';
 }
 
 .logo {
-  width: 100px;
-  margin-right: 10px;
+  width: 90px;
+  margin-right: 40px;
 }
 
 .hotel-name {
@@ -71,10 +71,11 @@ import AdminLogin from '@/components/AdminLogin.vue';
   flex-direction: column;
   align-items: flex-end;
   flex: 1;
+  margin-right: 50px;
 }
 
 nav {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 .nav-links {
@@ -82,6 +83,7 @@ nav {
   gap: 30px;
   list-style: none;
   padding: 0;
+  margin-right: 400px;
 }
 
 .nav-item {
