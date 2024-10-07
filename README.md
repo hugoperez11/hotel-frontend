@@ -42,3 +42,6 @@ npm run test:unit
 - CSS
 ### Preview
 ![vista pagina hotel](https://github.com/user-attachments/assets/7ad70c6d-5cff-4b42-8d44-23118cd4beb7)
+![vista pagina hotel](https://github.com/user-attachments/assets/30f2f617-8b42-4b7b-9249-9ec5e1d25aa7)
+
+
