@@ -39,3 +39,4 @@ npm run test:unit
 - Router
 - Axios
 - JavaScript
+- CSS
