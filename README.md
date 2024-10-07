@@ -34,7 +34,7 @@ npm run build
 npm run test:unit
 ```
 ## User Flow
-(https://drive.google.com/file/d/1iB527z1LO8aNnR5X0Mi8bKURIabCLaAY/view?usp=sharing)](https://app.diagrams.net/#G1iB527z1LO8aNnR5X0Mi8bKURIabCLaAY#%7B%22pageId%22%3A%22C5RBs43oDa-KdzZeNtuy%22%7D)
+(https://app.diagrams.net/#G1iB527z1LO8aNnR5X0Mi8bKURIabCLaAY#%7B%22pageId%22%3A%22C5RBs43oDa-KdzZeNtuy%22%7D)
 ## Tools
 - Vue 3 with the Composition API
 - Pinia
