@@ -33,6 +33,8 @@ npm run build
 ```sh
 npm run test:unit
 ```
+## User Flow
+https://drive.google.com/file/d/1iB527z1LO8aNnR5X0Mi8bKURIabCLaAY/view?usp=sharing
 ## Tools
 - Vue 3 with the Composition API
 - Pinia
