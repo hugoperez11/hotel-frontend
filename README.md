@@ -4,7 +4,7 @@ This hotel project is a modern web application for the fictional Florida Beach H
 
 ## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+[VSCode](https://code.visualstudio.com/) 
 
 ## Customize configuration
 
@@ -33,3 +33,9 @@ npm run build
 ```sh
 npm run test:unit
 ```
+##Tools
+- Vue 3 with the Composition API
+- Pinia
+- Router
+- Axios
+- JavaScript
